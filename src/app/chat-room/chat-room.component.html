@@ -1,0 +1,225 @@
+<!-- <div class="example-container mat-elevation-z8">
+  <div class="drawer-container">
+    <div  class="left-drawer">
+      <div class="users-pane">
+        <div class="users-card">
+          <div class="users-card" >
+            <span class="username"><i class="fas fa-user-circle"></i> {{users.email}}</span>
+         </div>
+          <button type="button" class="btn btn-outline-danger" id="btn-logout" (click)="exitChat()">
+            logout<i class="fas fa-sign-out-alt"></i>
+          </button>
+        </div>
+
+      </div>
+    </div>
+    <div class="chat-container">
+        <div class="message-box" *ngFor="let chat of chats">
+          <div class="chat-status" text-center *ngIf="chat.type==='join'||chat.type==='exit';else message">
+            <!-- <span class="chat-date">{{chat.date | date:'short'}}</span>
+            <span class="chat-content-center">{{chat.message}}</span>
+
+          </div>
+          <ng-template #message>
+            <div class="chat-message">
+              <div class="right-bubble" [ngClass]="{'right-bubble': this.name === chat.name, 'left-bubble': this.name !== chat.name}">
+                <span class="msg-name" *ngIf="this.name === chat.name">Me</span>
+                <span class="msg-name" *ngIf="this.name !== chat.name">{{chat.name}}</span>
+
+                <span class="msg-date"> at {{chat.date | date:'short'}}</span>
+                <p text-wrap>{{chat.message}}</p>
+              </div>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+      <footer class="sticky-footer">
+          <div class="message-form-field">
+            <input type="text" placeholder="Enter message here" id="chat-box" [(ngModel)]="chatForm.message">
+             <button type="button" id="idse" (click)="onFromSubmit()">
+              <mat-icon>send</mat-icon>
+            </button>
+          </div>
+      </footer>
+</div> -->
+
+<!-- new ui  -->
+<section class="msger">
+  <header class="msger-header">
+    <div class="msger-header-title">
+      <i class="fas fa-user-circle" style="color: deepskyblue"></i>
+      <svg
+        aria-hidden="true"
+        focusable="false"
+        data-prefix="fas"
+        data-icon="user"
+        role="img"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 448 512"
+        class="svg-inline--fa fa-user fa-w-14 fa-2x"
+      >
+        <path
+          fill="currentColor"
+          d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm89.6 32h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-41.6c0-74.2-60.2-134.4-134.4-134.4z"
+          class=""
+        ></path>
+      </svg>
+
+      {{ users.email }}
+    </div>
+    <div class="msger-header-options">
+      <!-- <span><i class="fas fa-cog"></i></span> -->
+      <button
+        type="button"
+        class="btn btn-outline-danger px-1"
+        id="btn-logout"
+        (click)="exitChat()"
+      >
+        logout<i class="fas fa-sign-out-alt pl-1"></i>
+      </button>
+    </div>
+  </header>
+
+  <main class="msger-chat">
+    <!-- <div *ngFor="let chat of chats" >
+       <span class="badge badge-secondary"> {{ newDate }}</span>
+      <div *ngIf="chat.date| date: 'dd/MM/yyyy' === newDate">
+      <div class="msg my-3" [ngClass]="{'right-msg': this.name === chat.name, 'left-msg': this.name !== chat.name}">
+
+        <div *ngIf="this.name === chat.name; else rightbubble">
+          <div class="msg-img" style="background-image: url(https://image.flaticon.com/icons/svg/145/145864.svg)"></div>
+        </div>
+
+        <ng-template #rightbubble>
+          <div class="msg-img" style="background-image: url(https://image.flaticon.com/icons/svg/145/145867.svg)" ></div>
+        </ng-template>
+
+        <div class="msg-bubble">
+          <div class="msg-info">
+            <div class="msg-info-name">
+               <span *ngIf="this.name === chat.name">Me</span>
+              <span *ngIf="this.name !== chat.name">{{chat.name}}</span>
+            </div>
+            <div class="msg-info-time"></div>
+          </div>
+
+          <div class="msg-text">
+        {{chat.message}} <span id="msg-date">{{chat.date| date:'shortTime'}}</span>
+          </div>
+
+        </div>
+      </div>
+
+    </div> -->
+
+    <div *ngFor="let data1 of messageArray">
+      <div class="date-badge">
+        <h3>
+          <span class="badge badge-dark"> {{ data1.date }}</span>
+        </h3>
+      </div>
+      <!-- <div *ngIf="chat.date| date: 'dd/MM/yyyy' === newDate"> -->
+
+      <div *ngFor="let data2 of data1.data">
+        <div
+          class="msg my-3"
+          [ngClass]="{
+            'right-msg': this.name === data2.name,
+            'left-msg': this.name !== data2.name
+          }"
+        >
+          <div *ngIf="this.name === data2.name; else rightbubble">
+            <div
+              class="msg-img"
+              style="
+                background-image: url(https://image.flaticon.com/icons/svg/145/145864.svg);
+              "
+            ></div>
+          </div>
+
+          <ng-template #rightbubble>
+            <div
+              class="msg-img"
+              style="
+                background-image: url(https://image.flaticon.com/icons/svg/145/145867.svg);
+              "
+            ></div>
+          </ng-template>
+
+          <div class="msg-bubble">
+            <!-- <div class="msg-info">
+           <div class="msg-info-name">
+              <span *ngIf="this.name === chat.name">Me</span>
+             <span *ngIf="this.name !== chat.name">{{chat.name}}</span>
+           </div>
+           <div class="msg-info-time"></div>
+         </div> -->
+
+            <div class="msg-text">
+              {{ data2.message }} <span id="msg-date">{{ data2.time }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cola" *ngIf="shouldDisplayTyping">
+      <div
+        class="msg-img"
+        style="
+          background-image: url(https://image.flaticon.com/icons/svg/145/145864.svg);
+        "
+      ></div>
+      <div class="snippet" data-title=".dot-typing">
+        <div class="stage">
+          <div class="dot-typing"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- <div class="msg ">
+      <div class="msg-img"
+       style="background-image: url(https://image.flaticon.com/icons/svg/145/145867.svg)" ></div>
+
+      <div class="msg-bubble">
+        <div class="msg-info">
+          <div class="msg-info-name">Sajad</div>
+          <div class="msg-info-time">12:46</div>
+        </div>
+
+        <div class="msg-text">
+          You can change your name in JS section!
+        </div>
+      </div>
+    </div> -->
+  </main>
+  <span class="scroll" (click)="scrollDown()" *ngIf="shouldDisplayScrollbar()">
+    <svg
+      aria-hidden="true"
+      focusable="false"
+      data-prefix="fas"
+      data-icon="angle-down"
+      class="svg-inline--fa fa-angle-down fa-w-10"
+      role="img"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 320 512"
+    >
+      <path
+        fill="currentColor"
+        d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"
+      /></svg
+  ></span>
+  <div class="msger-inputarea">
+    <input
+      type="text"
+      class="msger-input"
+      placeholder="Enter your message..."
+      [(ngModel)]="chatMessage"
+      (input)="pollTyping($event)"
+    />
+    <button type="button" class="msger-send-btn" (click)="onFromSubmit()">
+      Send
+    </button>
+  </div>
+</section>
