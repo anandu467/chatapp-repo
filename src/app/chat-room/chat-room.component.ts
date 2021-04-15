@@ -11,6 +11,7 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 import * as firebase from 'firebase';
 import { Message } from './key';
+import { Observable } from 'rxjs';
 
 export const snapshotToArray = (snapshot: any) => {
   const returnArr = [];
@@ -36,8 +37,10 @@ export class ChatRoomComponent implements OnInit, AfterViewInit {
   name = '';
   chatDisplyMainSection: any;
   messageArray: Message[] = [];
+  isMessageFieldFocused: boolean = false;
 
   isChatInitialed: boolean = false;
+  poll: any;
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -74,8 +77,9 @@ export class ChatRoomComponent implements OnInit, AfterViewInit {
           for (let chat in chats[date]) {
             if (chats[date][chat]['type'] == 'typing') {
               isPollingMessage = 1;
-              this.deleteChat(date + '/' + chat);
+
               if (chats[date][chat]['name'] != this.name) {
+                this.deleteChat(date + '/' + chat);
                 this.displayTyping();
                 continue;
               }
@@ -104,12 +108,18 @@ export class ChatRoomComponent implements OnInit, AfterViewInit {
       .catch((e) => console.log(e));
   }
 
-  pollTyping(event) {
-    let message = event.target.value;
-    if (message.length % 3 == 0) {
+  pollTyping() {
+    this.isMessageFieldFocused = true;
+    this.poll = setInterval(() => {
       let chat = this.createNewChat(this.name, 'typing', '');
       this.pushChatToDb(chat);
-    }
+      console.log('polling');
+    }, 1200);
+  }
+
+  stopPolling() {
+    this.isMessageFieldFocused = false;
+    clearInterval(this.poll);
   }
 
   shouldDisplayScrollbar() {

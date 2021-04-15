@@ -84,8 +84,8 @@ button:active {
 
 #blobSvg2 {
   right: 4rem;
-  right: 7rem;
-  transform: scale(2.6);
+  right: 8rem;
+  transform: scale(2.8);
   /* animation: 4s myAnimation2 infinite alternate-reverse; */
 }
 #blobSvg {

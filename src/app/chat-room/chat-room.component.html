@@ -216,7 +216,8 @@
       class="msger-input"
       placeholder="Enter your message..."
       [(ngModel)]="chatMessage"
-      (input)="pollTyping($event)"
+      (focus)="pollTyping()"
+      (blur)="stopPolling()"
     />
     <button type="button" class="msger-send-btn" (click)="onFromSubmit()">
       Send
